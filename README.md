@@ -1,3 +1,15 @@
+## Fairy Poké Shop
+
+Projeto em ReactJs
+
+Versão inicial com funcionalidades de carrinho e catálogo não-prontas e "hard-coded"
+
+Header desenvolvido sem links e funcionalidades.
+
+Catálogo vai ser fichas dividindo cada Pokémon ordenado por número e seu preço será seu número.
+
+##React
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
