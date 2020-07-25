@@ -1,9 +1,14 @@
-import Item1 from '../../images/item1.png'
+import Item1 from '../../images/sylveon.png'
+import Item2 from '../../images/clefable.png'
+import Item1S from '../../images/sylveonshiny.png'
+import Item2S from '../../images/clefableshiny.png'
 import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY } from '../actions/action-types/cart-actions'
 
 const initState = {
     items: [
-        {id:1,title:'Winter body', desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ex.", price:110,img:Item1},
+        {id:1,title:'Sylveon',  price:1,img:Item1,imgShiny:Item1S},    
+        {id:2,title:'Clefable',  price:2,img:Item2,imgShiny:Item2S},
+    
     ],
     addedItems:[],
     total: 0

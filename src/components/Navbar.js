@@ -20,8 +20,8 @@ import logo from '../images/fairylogo.png'
                 </div>
                 <div class="flex-1 mr-3">
                     <nav class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-                        <Link to="/"><div class="px-4 py-2 mt-2 text-sm font-semibold bg-pink-200 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-600 focus:outline-none focus:shadow-outline">Catálogo</div></Link>
-                        <Link to="/cart"><div class="px-4 py-2 mt-2 text-sm font-semibold bg-pink-200 rounded-lg md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-600 focus:outline-none focus:shadow-outline">Carrinho</div></Link>
+                        <Link to="/"><div class="px-4 py-2 mt-2 text-sm font-semibold bg-pink-200 rounded-lg md:mt-0 md:ml-4 hover:text-white hover:bg-pink-700 focus:outline-none focus:shadow-outline">Catálogo</div></Link>
+                        <Link to="/cart"><div class="px-4 py-2 mt-2 text-sm font-semibold bg-pink-200 rounded-lg md:mt-0 md:ml-4 hover:text-white hover:bg-pink-700 focus:outline-none focus:shadow-outline">Carrinho</div></Link>
                     </nav>
                 </div>
             </nav>  
