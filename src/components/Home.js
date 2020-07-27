@@ -4,23 +4,67 @@ import Carrinholateral from "./Carrinholateral"
 import { addToCart } from './actions/cartActions'
 import '../tailwind.output.css';
 
+
+
+
+
  class Home extends Component{
+    constructor(props) {
+        super(props);
     
+        this.state = {
+          loading: true,
+          pokefadasurls: [],
+          pokefadas: [],
+        }
+    
+        
+    }
+    componentDidMount() {
+        this.fetchFairyType();
+      }
+    
+    //função principal para recuperar todos os pokemons tipo fada e suas urls
+    fetchFairyType(){
+        const url = "https://pokeapi.co/api/v2/type/18";
+        return fetch(url)
+        .then(response => response.json())
+        .then(data =>{
+            this.setState({
+                pokefadasurls: data.pokemon,
+            });
+            this.gerapoke();
+        })
+    }
+    //função para realmente pegar as informações dos pokemons do tipo fada
+    gerapoke = () => {
+
+        //usa promises para pegar tudo e depois atualizar
+        const promises = [];
+        this.state.pokefadasurls.map(pokeatual => {
+            promises.push(fetch(pokeatual.pokemon.url).then(response => response.json()));
+        })
+        // depois de tudo ser feito, salva as informações e gera o catálogo
+        Promise.all(promises).then((responses) => {
+            this.setState({pokefadas:responses});
+        })
+    
+    }
+
     handleClick = (id)=>{
         this.props.addToCart(id); 
     }
-
     render(){
-        let itemList = this.props.items.map(item=>{
+        let itemList = this.state.pokefadas.filter(p => p.sprites.front_default !== null).map(poke=>{
             return(
                 <div class=" justify-start items-center w-64 mr-1 ml-1">
                     <div class="container p-2">
                         <div class="card flex flex-col justify-center p-6 bg-pink-200 rounded-lg shadow-2xl">
                             <div >
-                                <p class="font-sans text-2xl text-center text-gray-900 bg-white rounded-full font-bold">{item.title}</p>
+                                <p class="p-1 font-sans capitalize text-xl text-center text-gray-900 bg-white rounded-full font-bold">{poke.name}</p>
                             </div>
                             <div>
-                                <img src={item.img}
+                                <img src={poke.sprites.front_default}
                                     class="w-full object-cover object-center" />
                             </div>
                             <div class="prod-info grid gap-3">
@@ -42,10 +86,10 @@ import '../tailwind.output.css';
                                 </ul>
                                 </div> */}
                                 <div class="flex flex-row justify-center items-center">
-                                    <p class="font-bold text-xl text-black text-center">R$ {item.price}</p>
+                                    <p class="font-bold text-xl text-black text-center">R$ {poke.id}</p>
                                 </div>
                                 <div class="flex flex-row justify-between items-center">
-                                <button
+                                <button onClick={()=>{this.handleClick(poke.id)}}
                                             class="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">Adicionar ao carrinho</button>
                                 </div>
                             </div>
@@ -64,7 +108,7 @@ import '../tailwind.output.css';
                 </div>
 
                 <div class="flex px-12 py-8">
-                    <div class="flex w-3/4">
+                    <div class="flex flex-wrap w-3/4">
                         {itemList}
                     </div>
                     <div class="w-1/4">
@@ -79,7 +123,7 @@ import '../tailwind.output.css';
   
 const mapStateToProps = (state)=>{
     return {
-      items: state.items
+      pokefadas: state.pokefadas
     }
   }
 const mapDispatchToProps= (dispatch)=>{
