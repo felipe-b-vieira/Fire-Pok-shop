@@ -1,4 +1,4 @@
-## Fairy PokéShop
+## Fire PokéShop
 
 Projeto em ReactJs que busca ser uma loja de venda de Pokémon ligada a pokeapi(https://pokeapi.co/).
 
@@ -7,7 +7,7 @@ Versão 1.0 apresentando as seguintes funcionalidades:
     Catálogo de produtos
     Carrinho lateral
     Resumo do carrinho(Na página do carrinho)
-    2 lojas com estilos e tipos diferentes de Pokémon(Essa é a do tipo fada)
+    2 lojas com estilos e tipos diferentes de Pokémon(Essa é a do tipo fogo)
     Botão de finalizar compra, reiniciando o processo de compra
     Modal de obrigado ao finalizar compra
 

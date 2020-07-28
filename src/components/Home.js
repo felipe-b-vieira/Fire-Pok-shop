@@ -39,9 +39,9 @@ class Home extends Component{
                     return(
                         <div key={poke.id} className=" justify-start items-center w-64 mr-1 ml-1">
                             <div className="container p-2">
-                                <div className="card flex flex-col justify-center p-6 bg-pink-200 rounded-lg shadow-2xl">
+                                <div className="card flex flex-col justify-center p-6 bg-red-700 bg-opacity-75 shadow-2xl">
                                     <div >
-                                        <p className="p-1 font-sans capitalize text-xl text-center text-gray-900 bg-white rounded-full font-bold">{poke.name}</p>
+                                        <p className="p-1 font-sans capitalize text-xl text-center text-white bg-red-700 rounded-sm font-bold">{poke.name}</p>
                                     </div>
                                     <div>
                                         <img alt={poke.name} src={poke.sprites.front_default}
@@ -70,7 +70,7 @@ class Home extends Component{
                                         </div>
                                         <div className="flex flex-row justify-between items-center">
                                         <button onClick={()=>{this.handleClick(poke.id)}}
-                                                    className="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">Adicionar ao carrinho</button>
+                                                    className="px-3 transition ease-in text-white duration-100 bg-red-700 uppercase rounded-sm hover:bg-white hover:border-white hover:text-red-700 border-2 border-red-700 focus:outline-none font-sans">Adicionar ao carrinho</button>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@ class Home extends Component{
                 <div className=" m-auto">
                 <style>{"\
                     .loader {\
-                    border-top-color: #fed7e2;\
+                    border-top-color: #c53030;\
                     -webkit-animation: spinner 1.5s linear infinite;\
                     animation: spinner 1.5s linear infinite;\
                     }\
@@ -107,13 +107,13 @@ class Home extends Component{
             <div>
                 
                 <div className="hidden md:flex px-12">
-                    <h2 className="font-sans my-4 text-4xl font-semibold dark:text-gray-400">
+                    <h2 className="font-sans my-2 text-4xl font-semibold dark:text-gray-400">
                         Catálogo
                     </h2>
                 </div>
                 
 
-                <div className="hidden md:flex px-12 py-8">
+                <div className="hidden md:flex px-12 py-4">
                     <div className="flex flex-wrap w-3/4">
                         {itemList}
                     </div>
