@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Carrinholateral from "./Carrinholateral"
 import { addToCart } from './actions/cartActions'
+import { updateState} from './actions/pokeActions'
 import '../tailwind.output.css';
 
 
@@ -12,50 +13,25 @@ import '../tailwind.output.css';
     constructor(props) {
         super(props);
     
-        this.state = {
-          loading: true,
-          pokefadasurls: [],
-          pokefadas: [],
-        }
-    
-        
     }
-    componentDidMount() {
-        this.fetchFairyType();
-      }
-    
-    //função principal para recuperar todos os pokemons tipo fada e suas urls
-    fetchFairyType(){
-        const url = "https://pokeapi.co/api/v2/type/18";
-        return fetch(url)
-        .then(response => response.json())
-        .then(data =>{
-            this.setState({
-                pokefadasurls: data.pokemon,
-            });
-            this.gerapoke();
-        })
-    }
-    //função para realmente pegar as informações dos pokemons do tipo fada
-    gerapoke = () => {
-
-        //usa promises para pegar tudo e depois atualizar
-        const promises = [];
-        this.state.pokefadasurls.map(pokeatual => {
-            promises.push(fetch(pokeatual.pokemon.url).then(response => response.json()));
-        })
-        // depois de tudo ser feito, salva as informações e gera o catálogo
-        Promise.all(promises).then((responses) => {
-            this.setState({pokefadas:responses});
-        })
-    
-    }
-
     handleClick = (id)=>{
         this.props.addToCart(id); 
     }
+
+    //Quando ele carregar o componente ele entra no tempo que vai esperar terminar de carregar e vai ficar verificando a cada segundo.
+    //O loading vai virar true quando terminar de carregar.
+    componentDidMount() {
+        var that = this.props
+        var checkExist = setInterval(function() {
+            that.updateStatePoke() 
+            if (that.loading !== false) {
+               console.log("Exists!");
+                clearInterval(checkExist);
+            }
+         }, 1000);
+    }
     render(){
-        let itemList = this.state.pokefadas.filter(p => p.sprites.front_default !== null).map(poke=>{
+        let itemList = this.props.pokefadas.filter(p => p.sprites.front_default !== null).map(poke=>{
             return(
                 <div class=" justify-start items-center w-64 mr-1 ml-1">
                     <div class="container p-2">
@@ -123,13 +99,15 @@ import '../tailwind.output.css';
   
 const mapStateToProps = (state)=>{
     return {
-      pokefadas: state.pokefadas
+      pokefadas: state.pokeReducer.pokefadas,
+      loading: state.pokeReducer.loading
     }
   }
 const mapDispatchToProps= (dispatch)=>{
     
     return{
-        addToCart: (id)=>{dispatch(addToCart(id))}
+        addToCart: (id)=>{dispatch(addToCart(id))},
+        updateStatePoke : (teste)=>{dispatch(updateState())}
     }
 }
 

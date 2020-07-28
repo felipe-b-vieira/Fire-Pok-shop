@@ -21,12 +21,13 @@ const cartReducer= (state = initState,action)=>{
             existed_item.quantidade += 1 
              return{
                 ...state,
+                addedItems: [...state.addedItems],
                  total: state.total + existed_item.id
                   }
         }
          else{
              
-            let addedItem = {id:action.id,quantidade:0}
+            let addedItem = {id:action.id,quantidade:1}
             
             //calculating the total
             let newTotal = state.total + addedItem.id 
@@ -52,38 +53,38 @@ const cartReducer= (state = initState,action)=>{
             total: newTotal
         }
     }
-    // //INSIDE CART COMPONENT
-    // if(action.type=== ADD_QUANTITY){
-    //     let addedItem = state.items.find(item=> item.id === action.id)
-    //       addedItem.quantity += 1 
-    //       let newTotal = state.total + addedItem.price
-    //       return{
-    //           ...state,
-    //           total: newTotal
-    //       }
-    // }
-    // if(action.type=== SUB_QUANTITY){  
-    //     let addedItem = state.items.find(item=> item.id === action.id) 
-    //     //if the qt == 0 then it should be removed
-    //     if(addedItem.quantity === 1){
-    //         let new_items = state.addedItems.filter(item=>item.id !== action.id)
-    //         let newTotal = state.total - addedItem.price
-    //         return{
-    //             ...state,
-    //             addedItems: new_items,
-    //             total: newTotal
-    //         }
-    //     }
-    //     else {
-    //         addedItem.quantity -= 1
-    //         let newTotal = state.total - addedItem.price
-    //         return{
-    //             ...state,
-    //             total: newTotal
-    //         }
-    //     }
+
+    if(action.type=== ADD_QUANTITY){
+        let addedItem = state.addedItems.find(item=> item.id === action.id)
+          addedItem.quantidade += 1 
+          let newTotal = state.total + addedItem.id
+          return{
+              ...state,
+              total: newTotal
+          }
+    }
+    if(action.type=== SUB_QUANTITY){  
+        let addedItem = state.addedItems.find(item=> item.id === action.id) 
+        //if the qt == 0 then it should be removed
+        if(addedItem.quantidade === 1){
+            let new_items = state.addedItems.filter(item=>item.id !== action.id)
+            let newTotal = state.total - addedItem.id
+            return{
+                ...state,
+                addedItems: new_items,
+                total: newTotal
+            }
+        }
+        else {
+            addedItem.quantidade -= 1
+            let newTotal = state.total - addedItem.id
+            return{
+                ...state,
+                total: newTotal
+            }
+        }
         
-    // }
+    }
     return state
 }
 
