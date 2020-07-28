@@ -7,10 +7,7 @@ import '../tailwind.output.css';
 
 //Responsável por renderizar a home, o catálogo, com um carrinho lateral.
 class Home extends Component{
-    constructor(props) {
-        super(props);
-    
-    }
+
     //adiciona o pokémon ao carrinho
     handleClick = (id)=>{
         this.props.adicionarAoCarinnho(id); 
@@ -40,40 +37,40 @@ class Home extends Component{
             (  
                 this.props.pokefadas.filter(p => p.sprites.front_default !== null).map(poke=>{
                     return(
-                        <div class=" justify-start items-center w-64 mr-1 ml-1">
-                            <div class="container p-2">
-                                <div class="card flex flex-col justify-center p-6 bg-pink-200 rounded-lg shadow-2xl">
+                        <div key={poke.id} className=" justify-start items-center w-64 mr-1 ml-1">
+                            <div className="container p-2">
+                                <div className="card flex flex-col justify-center p-6 bg-pink-200 rounded-lg shadow-2xl">
                                     <div >
-                                        <p class="p-1 font-sans capitalize text-xl text-center text-gray-900 bg-white rounded-full font-bold">{poke.name}</p>
+                                        <p className="p-1 font-sans capitalize text-xl text-center text-gray-900 bg-white rounded-full font-bold">{poke.name}</p>
                                     </div>
                                     <div>
-                                        <img src={poke.sprites.front_default}
-                                            class="w-full object-cover object-center" />
+                                        <img alt={poke.name} src={poke.sprites.front_default}
+                                            className="w-full object-cover object-center" />
                                     </div>
-                                    <div class="prod-info grid gap-3">
+                                    <div className="prod-info grid gap-3">
                                         {/* Esse código seria para colocar shiny no mesmo cartão do normal, mas por enquanto, não será usado
                                         <div>
-                                        <ul class="flex flex-row justify-center items-center">
-                                            <li class="mr-4 last:mr-0">
+                                        <ul className="flex flex-row justify-center items-center">
+                                            <li className="mr-4 last:mr-0">
                                             <span
-                                                    class="hover:bg-pink-700 hover:text-white block border-2 border-gray-800 border-opacity-25 rounded-full transition ease-in duration-100">
-                                                <a href="#blue" class="block rounded-full px-3 py-1">Normal</a>
+                                                    className="hover:bg-pink-700 hover:text-white block border-2 border-gray-800 border-opacity-25 rounded-full transition ease-in duration-100">
+                                                <a href="#blue" className="block rounded-full px-3 py-1">Normal</a>
                                             </span>
                                             </li>
                                             <li >
                                             <span
-                                                    class="hover:bg-pink-700 hover:text-white block border-2 border-gray-800 border-opacity-25 rounded-full transition ease-in duration-100">
-                                                <a href="#blue" class="block rounded-full px-4 py-1">Shiny</a>
+                                                    className="hover:bg-pink-700 hover:text-white block border-2 border-gray-800 border-opacity-25 rounded-full transition ease-in duration-100">
+                                                <a href="#blue" className="block rounded-full px-4 py-1">Shiny</a>
                                             </span>
                                             </li>
                                         </ul>
                                         </div> */}
-                                        <div class="flex flex-row justify-center items-center">
-                                            <p class="font-bold text-xl text-black text-center">R$ {poke.id}</p>
+                                        <div className="flex flex-row justify-center items-center">
+                                            <p className="font-bold text-xl text-black text-center">R$ {poke.id}</p>
                                         </div>
-                                        <div class="flex flex-row justify-between items-center">
+                                        <div className="flex flex-row justify-between items-center">
                                         <button onClick={()=>{this.handleClick(poke.id)}}
-                                                    class="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">Adicionar ao carrinho</button>
+                                                    className="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">Adicionar ao carrinho</button>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +81,7 @@ class Home extends Component{
             ):
             (
                 //Simbolo de loading enquanto não carrega os pokémon, por algumas limitações do tailwind, o style precisa ser adicionado.
-                <div class=" m-auto">
+                <div className=" m-auto">
                 <style>{"\
                     .loader {\
                     border-top-color: #fed7e2;\
@@ -102,23 +99,38 @@ class Home extends Component{
                 "}
                 </style>
 
-                <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-64 w-64"></div>
+                <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-64 w-64"></div>
                 </div>
             )
+        //tem repetição no html para versão de telas pequenas(celulares)
         return(
             <div>
-                <div class="flex px-12">
-                    <h2 class="font-sans my-4 text-4xl font-semibold dark:text-gray-400">
+                
+                <div className="hidden md:flex px-12">
+                    <h2 className="font-sans my-4 text-4xl font-semibold dark:text-gray-400">
                         Catálogo
                     </h2>
                 </div>
+                
 
-                <div class="flex px-12 py-8">
-                    <div class="flex flex-wrap w-3/4">
+                <div className="hidden md:flex px-12 py-8">
+                    <div className="flex flex-wrap w-3/4">
                         {itemList}
                     </div>
-                    <div class="w-1/4">
+                    <div className="w-1/4">
                         <Carrinholateral></Carrinholateral>
+                    </div>
+                </div>
+                
+                <div className="md:hidden px-12 py-8">
+                    <div className=" w-auto">
+                        <Carrinholateral></Carrinholateral>
+                    </div>
+                    <h2 className="font-sans my-4 text-4xl font-semibold text-center dark:text-gray-400">
+                        Catálogo
+                    </h2>
+                    <div className=" w-auto ">
+                        {itemList}
                     </div>
                 </div>
             </div>

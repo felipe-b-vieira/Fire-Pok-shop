@@ -1,8 +1,4 @@
 import { connect } from 'react-redux'
-import Item1 from '../../images/sylveon.png'
-import Item2 from '../../images/clefable.png'
-import Item1S from '../../images/sylveonshiny.png'
-import Item2S from '../../images/clefableshiny.png'
 import { ADICIONAR_PARA_CARRINHO,REMOVER_ITEM,SUB_QUANTIDADE,ADD_QUANTIDADE, ALTERNA_COMPRA } from '../actions/action-types/cart-actions'
 
 const initState = {
@@ -46,7 +42,6 @@ const cartReducer= (state = initState,action)=>{
         let novosItens = state.itensNoCarrinho.filter(item=> action.id !== item.id)
         
         let novoTotal = state.total - (itemParaRemover.id * itemParaRemover.quantidade )
-        console.log(itemParaRemover)
         return{
             ...state,
             itensNoCarrinho: novosItens,

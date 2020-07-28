@@ -1,8 +1,4 @@
 import { connect } from 'react-redux'
-import Item1 from '../../images/sylveon.png'
-import Item2 from '../../images/clefable.png'
-import Item1S from '../../images/sylveonshiny.png'
-import Item2S from '../../images/clefableshiny.png'
 import { LOAD } from '../actions/pokeActions'
 
 const initState = {

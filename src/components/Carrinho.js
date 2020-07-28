@@ -24,16 +24,16 @@ class Carrinho extends Component{
       //responsável em mostrar o modal após finalizar compra
       let modalCompra = this.props.compraFinalizada ?
       (
-          <div class=" top-0 z-20 w-full h-full absolute flex items-center justify-center bg-modal bg-opacity-50 bg-gray-500">
-            <div class="rounded shadow p-8 m-4 max-w-xl max-h-full text-center bg-pink-200">
-                <div class="mb-2">
-                    <h1 class="font-sans text-2xl text-center text-gray-900 font-bold">Obrigado pela compra!</h1>
+          <div className=" top-0 z-20 w-full h-full absolute flex items-center justify-center bg-modal bg-opacity-50 bg-gray-500">
+            <div className="rounded shadow p-8 m-4 max-w-xl max-h-full text-center bg-pink-200">
+                <div className="mb-2">
+                    <h1 className="font-sans text-2xl text-center text-gray-900 font-bold">Obrigado pela compra!</h1>
                 </div>
-                <div class="mb-4">
-                    <p class="font-sans text-base text-center text-gray-900 ">Quer continuar comprando?</p>
+                <div className="mb-4">
+                    <p className="font-sans text-base text-center text-gray-900 ">Quer continuar comprando?</p>
                 </div>
-                <div class="flex justify-center">
-                    <button  onClick={()=>{this.handleAlternaCompra()}} class="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">
+                <div className="flex justify-center">
+                    <button  onClick={()=>{this.handleAlternaCompra()}} className="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">
                     <Link to="/">Voltar ao catálogo</Link>
                     </button>
                 </div>
@@ -48,28 +48,28 @@ class Carrinho extends Component{
       let tituloCarrinho= this.props.items.length ?
             (  
               <thead>
-                <tr class="h-12">
-                  <th class="text-left font-sans my-4 text-4xl font-semibold dark:text-gray-400">Carrinho</th>
+                <tr className="w-1/4 h-12">
+                  <th className="text-left font-sans my-4 text-4xl font-semibold dark:text-gray-400">Carrinho</th>
                 </tr>
-                <tr class="h-12 uppercase font-sans">
-                  <th class="hidden md:table-cell"></th>
-                  <th class="text-center font-sans">Nome</th>
-                  <th class="text-center pl-5 lg:pl-0">
-                    <span class="lg:hidden" title="Quantidade">Qtd</span>
-                    <span class="hidden lg:inline">Quantidade</span>
+                <tr className="h-12 uppercase font-sans">
+                  <th className="table-cell w-1/4"></th>
+                  <th className="text-center font-sans w-1/4">Nome</th>
+                  <th className="text-center w-1/4">
+                    <span className="lg:hidden" title="Quantidade">Qtd</span>
+                    <span className="hidden lg:inline">Quantidade</span>
                   </th>
-                  <th class="hidden text-center md:table-cell">Preço unitário</th>
-                  <th class="text-center">Preço total</th>
+                  <th className="hidden text-center md:table-cell ">Preço unitário</th>
+                  <th className="text-center w-1/4">Preço total</th>
                 </tr>
               </thead>
             ):
             (
               <thead>
-                <tr class="h-12">
-                    <th class=" pb-12 text-left font-sans my-4 text-4xl font-semibold dark:text-gray-400">Carrinho Vazio</th>
+                <tr className="h-12">
+                    <th className=" pb-12 text-left font-sans my-4 text-4xl font-semibold dark:text-gray-400">Carrinho Vazio</th>
                 </tr>
                 <tr>
-                    <button class="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">
+                    <button className="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">
                       <Link to="/">Voltar ao catálogo</Link>
                     </button>
                 </tr>
@@ -81,15 +81,15 @@ class Carrinho extends Component{
       let finalizarCompra= this.props.items.length ?
             (  
               <div>
-                <div class="p-2 flex bg-pink-300 cursor-pointer border-b border-gray-100 px-12"  >
-                        <div class="flex-auto text-sm w-32">
-                            <div class="font-bold text-xl">Total</div>
+                <div className="p-2 flex bg-pink-300 cursor-pointer border-b border-gray-100 px-12"  >
+                        <div className="flex-auto text-sm md:w-32">
+                            <div className="font-bold text-xl">Total</div>
                         </div>
-                        <div class="flex flex-col w-18 font-bold text-2xl items-end">
+                        <div className="flex flex-col md:w-18 font-bold text-2xl items-end">
                           R$ {this.props.total}</div>
                     </div>
-                <div class="bg-pink-200 p-4 justify-center flex">
-                    <button onClick={()=>{this.handleAlternaCompra()}} class="text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
+                <div className="bg-pink-200 p-4 justify-center flex">
+                    <button onClick={()=>{this.handleAlternaCompra()}} className="text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
                     hover:bg-pink-700 hover:text-teal-100 
                     bg-pink-100 
                     text-pink-700 
@@ -99,8 +99,8 @@ class Carrinho extends Component{
               </div>
             ):
             (
-              <div class="bg-pink-200 p-4 justify-center flex">
-                  <button class="text-base flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
+              <div className="bg-pink-200 p-4 justify-center flex">
+                  <button className="text-base flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
                   bg-gray-100 
                   text-gray-500 
                   border duration-200 ease-in-out 
@@ -116,31 +116,31 @@ class Carrinho extends Component{
                   let pokeatual = this.props.pokefadas.filter(v => v.id===item.id)[0];
                     return(
                           <tr>
-                            <td class="w-10 pl-10">
-                              <img src={pokeatual.sprites.front_default} class="w-20 rounded" alt="Thumbnail"></img>
+                            <td className=" md:w-10 md:pl-10">
+                              <img src={pokeatual.sprites.front_default} className="w-20 rounded" alt="Thumbnail"></img>
                             </td>
-                            <td>
-                              <p class="capitalize">{pokeatual.name}</p>
+                            <td className="capitalize text-center">
+                              <p>{pokeatual.name}</p>
                               <form action="" method="POST">
-                                <button onClick={()=>{this.handleRemover(item.id)}} type="submit" class="text-gray-700 ">
+                                <button onClick={()=>{this.handleRemover(item.id)}} type="submit" className="text-gray-700 ">
                                   <small >(Remover item)</small>
                                 </button>
                               </form>
                             </td>
-                            <td class="justify-center md:flex mt-6">
-                                <div class=" justify-center font-sans text-xl text-center">
-                                  <AiFillPlusCircle onClick={()=>{this.handleAdicionaQuantidade(item.id)}} class=" inline"></AiFillPlusCircle>
-                                  <div class="px-3 inline">{item.quantidade}</div>
-                                  <AiFillMinusCircle onClick={()=>{this.handleRemoveQuantidade(item.id)}} class=" inline"></AiFillMinusCircle>
+                            <td className="justify-center md:flex mt-6">
+                                <div className=" justify-center font-sans text-xl text-center">
+                                  <AiFillPlusCircle onClick={()=>{this.handleAdicionaQuantidade(item.id)}} className=" inline"></AiFillPlusCircle>
+                                  <div className=" px-1 md:px-3 inline">{item.quantidade}</div>
+                                  <AiFillMinusCircle onClick={()=>{this.handleRemoveQuantidade(item.id)}} className=" inline"></AiFillMinusCircle>
                                 </div>
                             </td>
-                            <td class="text-center">
-                              <span class="font-sans text-xl ">
+                            <td className="text-center hidden md:table-cell">
+                              <span className="font-sans text-xl ">
                                 {item.id}
                               </span>
                             </td>
-                            <td class="text-center">
-                              <span class="font-sans text-xl ">
+                            <td className="text-center">
+                              <span className="font-sans text-xl ">
                                 {item.id * item.quantidade}
                               </span>
                             </td>
@@ -159,11 +159,11 @@ class Carrinho extends Component{
           this.props.items.map(item=>{
                 return(
                   <div>
-                    <div class="p-2 flex bg-pink-200 cursor-pointer border-b border-gray-100 px-12"  >
-                        <div class="flex-auto text-sm w-32">
-                            <div class="font-bold">{item.quantidade} produtos</div>
+                    <div className="p-2 flex bg-pink-200 cursor-pointer border-b border-gray-100 px-12"  >
+                        <div className="flex-auto text-sm md:w-32">
+                            <div className="font-bold">{item.quantidade} produtos</div>
                         </div>
-                        <div class="flex flex-col w-18 font-medium items-end">
+                        <div className="flex flex-col md:w-18 font-medium items-end">
                           R$ {item.quantidade*item.id}</div>
                     </div>
                     
@@ -173,40 +173,41 @@ class Carrinho extends Component{
         ):
 
          (
-          <div class="px-2 py-10 flex bg-pink-200 cursor-pointer border-b border-gray-100"  >
-              <div class="flex-auto text-sm w-32">
-                  <div class="font-bold text-gray-600 text-center">-Vazio-</div>
+          <div className="px-2 py-10 flex bg-pink-200 cursor-pointer border-b border-gray-100"  >
+              <div className="flex-auto text-sm w-32">
+                  <div className="font-bold text-gray-600 text-center">-Vazio-</div>
               </div>
           </div>
          )
 
 
 
-      //return de render principal, utilizando as outras partes
+      //return de render principal, utilizando as outras partes. Tem duas versões, uma para telas maiores e outra para menores(celulares)
        return(
-            <div class="flex justify-center my-6">
-              {modalCompra}
-                <div class="flex flex-col w-3/4 p-8 text-gray-800 bg-white shadow-lg pin-r pin-y mr-8 ml-12">
-                    <div class="flex-1">
-                        <table class="w-full text-sm lg:text-base" cellspacing="0">
-                        {tituloCarrinho}
-                        <tbody>{addedItems}</tbody>
-                        </table>
-                    </div> 
-                </div>
-                <div class="rounded-b border-t-0 z-10 w-1/4 mr-12">
-                    <div class="shadow-xl w-full">
-                        <div class="p-2 flex bg-pink-200 cursor-pointer border-b border-gray-100 rounded-t"  >
-                            <div class="flex-auto text-sm w-32">
-                                <div class="font-sans text-2xl text-center text-gray-900 font-bold">Resumo do carrinho</div>
-                            </div>
-                        </div>
-                        {addedItemsResumo}
-                        {finalizarCompra}
+            <div>
+                <div className="md:flex justify-center md:my-6">
+                  {modalCompra}
+                    <div className="md:flex md:flex-col md:w-3/4 p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:mr-8 md:ml-12">
+                        <div className="flex-1">
+                            <table className=" table-fixed w-full text-sm lg:text-base" cellspacing="0">
+                            {tituloCarrinho}
+                            <tbody>{addedItems}</tbody>
+                            </table>
+                        </div> 
                     </div>
-                 </div>
-        </div> 
-            
+                    <div className="rounded-b border-t-0 z-10 md:w-1/4 md:ml-0 ml-12 mr-12 mt-12 md:mt-0">
+                        <div className="shadow-xl w-full">
+                            <div className="p-2 md:flex bg-pink-200 cursor-pointer border-b border-gray-100 rounded-t"  >
+                                <div className="md:flex-auto text-sm md:w-32">
+                                    <div className="font-sans text-2xl text-center text-gray-900 font-bold">Resumo do carrinho</div>
+                                </div>
+                            </div>
+                            {addedItemsResumo}
+                            {finalizarCompra}
+                        </div>
+                    </div>
+                  </div> 
+              </div>
        )
     }
 }
