@@ -14,12 +14,14 @@ class Carrinholateral extends Component{
             (  
                 <div>
                         <div class="bg-pink-200 p-4 justify-center flex">
-                            <button class="text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-                            hover:bg-pink-700 hover:text-teal-100 
-                            bg-pink-100 
-                            text-pink-700 
-                            border duration-200 ease-in-out 
-                            border-pink-600 transition">Checkout R$ {this.props.total}</button>
+                            <Link to="/cart">
+                                <button class="text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
+                                hover:bg-pink-700 hover:text-teal-100 
+                                bg-pink-100 
+                                text-pink-700 
+                                border duration-200 ease-in-out 
+                                border-pink-600 transition">Checkout R$ {this.props.total}</button>
+                            </Link>
                         </div>
                 </div>                
             ):(

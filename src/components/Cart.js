@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { removeItem,addQuantity,subtractQuantity} from './actions/cartActions'
+import { removeItem,addQuantity,subtractQuantity, alternaCompra} from './actions/cartActions'
 import { AiFillPlusCircle,AiFillMinusCircle } from 'react-icons/ai';
 class Cart extends Component{
 
@@ -17,8 +17,33 @@ class Cart extends Component{
     handleSubtractQuantity = (id)=>{
         this.props.subtractQuantity(id);
     }
+    //to substruct from the quantity
+    handleAlternaCompra = (id)=>{
+        this.props.alternaCompra(id);
+    }
     render(){
-         
+      //responsável em mostrar o modal após finalizar compra
+      let modalCompra = this.props.compraFinalizada ?
+      (
+          <div class="w-full absolute flex items-center justify-center bg-modal">
+            <div class="rounded shadow p-8 m-4 max-w-xl max-h-full text-center bg-pink-200">
+                <div class="mb-2">
+                    <h1 class="font-sans text-2xl text-center text-gray-900 font-bold">Obrigado pela compra!</h1>
+                </div>
+                <div class="mb-4">
+                    <p class="font-sans text-base text-center text-gray-900 ">Quer continuar comprando?</p>
+                </div>
+                <div class="flex justify-center">
+                    <button  onClick={()=>{this.handleAlternaCompra()}} class="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">Voltar ao catálogo</button>
+                </div>
+            </div>
+          </div>
+      ):
+      (
+        <div></div>
+      )
+
+      //Altera o título do carrinho com base em ter itens ou não
       let tituloCarrinho= this.props.items.length ?
             (  
               <thead>
@@ -43,13 +68,15 @@ class Cart extends Component{
                     <th class=" pb-12 text-left font-sans my-4 text-4xl font-semibold dark:text-gray-400">Carrinho Vazio</th>
                 </tr>
                 <tr>
-                    <button class="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans"><a href="./">Voltar ao catálogo</a></button>
+                    <button class="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">
+                      <Link to="/">Voltar ao catálogo</Link>
+                    </button>
                 </tr>
              </thead>
             )
 
 
-
+      //Altera o botão de finalizar compra caso o carrinho esteja vazio ou não
       let finalizarCompra= this.props.items.length ?
             (  
               <div>
@@ -61,7 +88,7 @@ class Cart extends Component{
                           {this.props.total}</div>
                     </div>
                 <div class="bg-pink-200 p-4 justify-center flex">
-                    <button class="text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
+                    <button onClick={()=>{this.handleAlternaCompra()}} class="text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
                     hover:bg-pink-700 hover:text-teal-100 
                     bg-pink-100 
                     text-pink-700 
@@ -81,7 +108,7 @@ class Cart extends Component{
             )
 
 
-
+        //Mostra os itens no carrinho, se não tiver items mostra padrão vazio
         let addedItems = this.props.items.length ?
             (  
                 this.props.items.map(item=>{
@@ -89,19 +116,15 @@ class Cart extends Component{
                     return(
                           <tr>
                             <td class="w-10 pl-10">
-                              <a href="#" >
-                                <img src={pokeatual.sprites.front_default} class="w-20 rounded" alt="Thumbnail"></img>
-                              </a>
+                              <img src={pokeatual.sprites.front_default} class="w-20 rounded" alt="Thumbnail"></img>
                             </td>
                             <td>
-                              <a href="#" class="text-center">
-                                <p class="capitalize">{pokeatual.name}</p>
-                                <form action="" method="POST">
-                                  <button onClick={()=>{this.handleRemove(item.id)}} type="submit" class="text-gray-700 ">
-                                    <small >(Remover item)</small>
-                                  </button>
-                                </form>
-                              </a>
+                              <p class="capitalize">{pokeatual.name}</p>
+                              <form action="" method="POST">
+                                <button onClick={()=>{this.handleRemove(item.id)}} type="submit" class="text-gray-700 ">
+                                  <small >(Remover item)</small>
+                                </button>
+                              </form>
                             </td>
                             <td class="justify-center md:flex mt-6">
                                 <div class=" justify-center font-sans text-xl text-center">
@@ -127,7 +150,9 @@ class Cart extends Component{
             (
               <div></div>
             )
-             
+
+
+        //render responsável por mostra o resumo dos itens, se não tiver item, mostra vazio
         let addedItemsResumo = this.props.items.length ?
         (  
           this.props.items.map(item=>{
@@ -156,9 +181,10 @@ class Cart extends Component{
 
 
 
-
+      //return de render principal, utilizando as outras partes
        return(
             <div class="flex justify-center my-6">
+              {modalCompra}
                 <div class="flex flex-col w-3/4 p-8 text-gray-800 bg-white shadow-lg pin-r pin-y mr-8 ml-12">
                     <div class="flex-1">
                         <table class="w-full text-sm lg:text-base" cellspacing="0">
@@ -188,13 +214,15 @@ const mapStateToProps = (state)=>{
         items: state.cartReducer.addedItems,
         total: state.cartReducer.total,
         pokefadas: state.pokeReducer.pokefadas,
+        compraFinalizada: state.cartReducer.compraFinalizada,
     }
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
         removeItem: (id)=>{dispatch(removeItem(id))},
         addQuantity: (id)=>{dispatch(addQuantity(id))},
-        subtractQuantity: (id)=>{dispatch(subtractQuantity(id))}
+        subtractQuantity: (id)=>{dispatch(subtractQuantity(id))},
+        alternaCompra: ()=>{dispatch(alternaCompra())}
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Cart)

@@ -1,5 +1,5 @@
 
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING} from './action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, END_BUY} from './action-types/cart-actions'
 
 //add cart action
 export const addToCart= (id)=>{
@@ -27,5 +27,11 @@ export const addQuantity=(id)=>{
     return{
         type: ADD_QUANTITY,
         id
+    }
+}
+//add qt action
+export const alternaCompra=()=>{
+    return{
+        type: END_BUY,
     }
 }

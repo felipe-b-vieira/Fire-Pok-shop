@@ -3,11 +3,12 @@ import Item1 from '../../images/sylveon.png'
 import Item2 from '../../images/clefable.png'
 import Item1S from '../../images/sylveonshiny.png'
 import Item2S from '../../images/clefableshiny.png'
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY } from '../actions/action-types/cart-actions'
+import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY, END_BUY } from '../actions/action-types/cart-actions'
 
 const initState = {
     addedItems:[],
     total: 0,
+    compraFinalizada : false,
 
 }
 
@@ -82,6 +83,16 @@ const cartReducer= (state = initState,action)=>{
                 ...state,
                 total: newTotal
             }
+        }
+        
+    }
+    
+    if(action.type=== END_BUY){  
+        console.log(state.compraFinalizada)
+        return{
+            ...state,
+            addedItems : [],
+            compraFinalizada : !state.compraFinalizada
         }
         
     }
