@@ -1,8 +1,7 @@
 
 //Types should be in const to avoid typos and duplication since it's a string and could be easily miss spelled
-export const ADD_TO_CART = 'ADD_TO_CART';
-export const REMOVE_ITEM = 'REMOVE_ITEM';
-export const SUB_QUANTITY = 'SUB_QUANTITY';
-export const ADD_QUANTITY = 'ADD_QUANTITY';
-export const ADD_SHIPPING = 'ADD_SHIPPING';
-export const END_BUY = 'END_BUY';
+export const ADICIONAR_PARA_CARRINHO = 'ADICIONAR_PARA_CARRINHO';
+export const REMOVER_ITEM = 'REMOVER_ITEM';
+export const SUB_QUANTIDADE = 'SUB_QUANTIDADE';
+export const ADD_QUANTIDADE = 'ADD_QUANTIDADE';
+export const ALTERNA_COMPRA = 'ALTERNA_COMPRA';

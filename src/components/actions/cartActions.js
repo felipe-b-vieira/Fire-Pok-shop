@@ -1,37 +1,37 @@
 
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY,ADD_SHIPPING, END_BUY} from './action-types/cart-actions'
+import { ADICIONAR_PARA_CARRINHO,REMOVER_ITEM,SUB_QUANTIDADE,ADD_QUANTIDADE,ALTERNA_COMPRA} from './action-types/cart-actions'
 
-//add cart action
-export const addToCart= (id)=>{
+//ação para adicionar ao carrinho
+export const adicionaAoCarrinho= (id)=>{
     return{
-        type: ADD_TO_CART,
+        type: ADICIONAR_PARA_CARRINHO,
         id
     }
 }
-//remove item action
+//ação de remover item
 export const removeItem=(id)=>{
     return{
-        type: REMOVE_ITEM,
+        type: REMOVER_ITEM,
         id
     }
 }
-//subtract qt action
-export const subtractQuantity=(id)=>{
+//ação de subtrair quantidade de item
+export const subtrairQuantidade=(id)=>{
     return{
-        type: SUB_QUANTITY,
+        type: SUB_QUANTIDADE,
         id
     }
 }
-//add qt action
-export const addQuantity=(id)=>{
+//ação de adição a quantidade de item
+export const adicionarQuantidade=(id)=>{
     return{
-        type: ADD_QUANTITY,
+        type: ADD_QUANTIDADE,
         id
     }
 }
-//add qt action
+//ação de alternar entre compra finalizada ou não
 export const alternaCompra=()=>{
     return{
-        type: END_BUY,
+        type: ALTERNA_COMPRA,
     }
 }

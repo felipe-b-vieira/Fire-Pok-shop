@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { removeItem,addQuantity,subtractQuantity, alternaCompra} from './actions/cartActions'
+import { removeItem,adicionarQuantidade,subtrairQuantidade, alternaCompra} from './actions/cartActions'
 import { AiFillPlusCircle,AiFillMinusCircle } from 'react-icons/ai';
-class Cart extends Component{
 
-    //to remove the item completely
-    handleRemove = (id)=>{
-        this.props.removeItem(id);
+class Carrinho extends Component{
+
+    //funções de controle de carrinho ao clique
+    handleRemover = (id)=>{
+        this.props.removerItem(id);
     }
-    //to add the quantity
-    handleAddQuantity = (id)=>{
-        this.props.addQuantity(id);
+    handleAdicionaQuantidade = (id)=>{
+        this.props.adicionarQuantidade(id);
     }
-    //to substruct from the quantity
-    handleSubtractQuantity = (id)=>{
-        this.props.subtractQuantity(id);
+    handleRemoveQuantidade = (id)=>{
+        this.props.subtratirQuantidade(id);
     }
-    //to substruct from the quantity
     handleAlternaCompra = (id)=>{
         this.props.alternaCompra(id);
     }
+    
     render(){
       //responsável em mostrar o modal após finalizar compra
       let modalCompra = this.props.compraFinalizada ?
       (
-          <div class="w-full absolute flex items-center justify-center bg-modal">
+          <div class=" top-0 z-20 w-full h-full absolute flex items-center justify-center bg-modal bg-opacity-50 bg-gray-500">
             <div class="rounded shadow p-8 m-4 max-w-xl max-h-full text-center bg-pink-200">
                 <div class="mb-2">
                     <h1 class="font-sans text-2xl text-center text-gray-900 font-bold">Obrigado pela compra!</h1>
@@ -34,7 +33,9 @@ class Cart extends Component{
                     <p class="font-sans text-base text-center text-gray-900 ">Quer continuar comprando?</p>
                 </div>
                 <div class="flex justify-center">
-                    <button  onClick={()=>{this.handleAlternaCompra()}} class="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">Voltar ao catálogo</button>
+                    <button  onClick={()=>{this.handleAlternaCompra()}} class="px-3 transition ease-in duration-100 uppercase rounded-full hover:bg-pink-700 hover:border-pink-700 hover:text-white border-2 border-gray-900 focus:outline-none font-sans">
+                    <Link to="/">Voltar ao catálogo</Link>
+                    </button>
                 </div>
             </div>
           </div>
@@ -85,7 +86,7 @@ class Cart extends Component{
                             <div class="font-bold text-xl">Total</div>
                         </div>
                         <div class="flex flex-col w-18 font-bold text-2xl items-end">
-                          {this.props.total}</div>
+                          R$ {this.props.total}</div>
                     </div>
                 <div class="bg-pink-200 p-4 justify-center flex">
                     <button onClick={()=>{this.handleAlternaCompra()}} class="text-base  undefined  hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
@@ -121,16 +122,16 @@ class Cart extends Component{
                             <td>
                               <p class="capitalize">{pokeatual.name}</p>
                               <form action="" method="POST">
-                                <button onClick={()=>{this.handleRemove(item.id)}} type="submit" class="text-gray-700 ">
+                                <button onClick={()=>{this.handleRemover(item.id)}} type="submit" class="text-gray-700 ">
                                   <small >(Remover item)</small>
                                 </button>
                               </form>
                             </td>
                             <td class="justify-center md:flex mt-6">
                                 <div class=" justify-center font-sans text-xl text-center">
-                                  <AiFillPlusCircle onClick={()=>{this.handleAddQuantity(item.id)}} class=" inline"></AiFillPlusCircle>
+                                  <AiFillPlusCircle onClick={()=>{this.handleAdicionaQuantidade(item.id)}} class=" inline"></AiFillPlusCircle>
                                   <div class="px-3 inline">{item.quantidade}</div>
-                                  <AiFillMinusCircle onClick={()=>{this.handleSubtractQuantity(item.id)}} class=" inline"></AiFillMinusCircle>
+                                  <AiFillMinusCircle onClick={()=>{this.handleRemoveQuantidade(item.id)}} class=" inline"></AiFillMinusCircle>
                                 </div>
                             </td>
                             <td class="text-center">
@@ -211,7 +212,7 @@ class Cart extends Component{
 }
 const mapStateToProps = (state)=>{
     return{
-        items: state.cartReducer.addedItems,
+        items: state.cartReducer.itensNoCarrinho,
         total: state.cartReducer.total,
         pokefadas: state.pokeReducer.pokefadas,
         compraFinalizada: state.cartReducer.compraFinalizada,
@@ -219,10 +220,10 @@ const mapStateToProps = (state)=>{
 }
 const mapDispatchToProps = (dispatch)=>{
     return{
-        removeItem: (id)=>{dispatch(removeItem(id))},
-        addQuantity: (id)=>{dispatch(addQuantity(id))},
-        subtractQuantity: (id)=>{dispatch(subtractQuantity(id))},
+        removerItem: (id)=>{dispatch(removeItem(id))},
+        adicionarQuantidade: (id)=>{dispatch(adicionarQuantidade(id))},
+        subtratirQuantidade: (id)=>{dispatch(subtrairQuantidade(id))},
         alternaCompra: ()=>{dispatch(alternaCompra())}
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Cart)
+export default connect(mapStateToProps,mapDispatchToProps)(Carrinho)

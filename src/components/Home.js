@@ -1,36 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Carrinholateral from "./Carrinholateral"
-import { addToCart } from './actions/cartActions'
-import { updateState} from './actions/pokeActions'
+import { adicionaAoCarrinho } from './actions/cartActions'
+import { atualizaState} from './actions/pokeActions'
 import '../tailwind.output.css';
 
-
-
-
-
- class Home extends Component{
+//Responsável por renderizar a home, o catálogo, com um carrinho lateral.
+class Home extends Component{
     constructor(props) {
         super(props);
     
     }
+    //adiciona o pokémon ao carrinho
     handleClick = (id)=>{
-        this.props.addToCart(id); 
+        this.props.adicionarAoCarinnho(id); 
     }
 
     //Quando ele carregar o componente ele entra no tempo que vai esperar terminar de carregar e vai ficar verificando a cada segundo.
     //O loading vai virar true quando terminar de carregar.
+    //Não é ideal, mas apresentou problemas durante a verificação de mudança de state e para evitar muita carga, ele cancela depois de 10 segundos.
+    //Se acontecer de cancelar nesse tempo, pode ter alcançado o limite de API, aguarde e tente novamente.
     componentDidMount() {
         var that = this.props
+        var maximoChecagens = 10;
+        var checagemAtual = 0;
         var checkExist = setInterval(function() {
-            that.updateStatePoke() 
-            if (that.loading !== false) {
-               console.log("Exists!");
+            that.updateStatePoke() ;
+            checagemAtual+=1;
+            if (that.loading !== false || checagemAtual===maximoChecagens) {
                 clearInterval(checkExist);
             }
          }, 1000);
     }
+
+    //função de renderização da home e carrinho lateral, mas detalhes dentro.
     render(){
+        //faz a listagem de pokémon fada com base nas informações obtidas por API, enquanto não tiver carregado, ele mostra um loading
         let itemList = this.props.pokefadas.length ?
             (  
                 this.props.pokefadas.filter(p => p.sprites.front_default !== null).map(poke=>{
@@ -78,10 +83,11 @@ import '../tailwind.output.css';
                 })
             ):
             (
+                //Simbolo de loading enquanto não carrega os pokémon, por algumas limitações do tailwind, o style precisa ser adicionado.
                 <div class=" m-auto">
                 <style>{"\
                     .loader {\
-                    border-top-color: #3498db;\
+                    border-top-color: #fed7e2;\
                     -webkit-animation: spinner 1.5s linear infinite;\
                     animation: spinner 1.5s linear infinite;\
                     }\
@@ -130,8 +136,8 @@ const mapStateToProps = (state)=>{
 const mapDispatchToProps= (dispatch)=>{
     
     return{
-        addToCart: (id)=>{dispatch(addToCart(id))},
-        updateStatePoke : (teste)=>{dispatch(updateState())}
+        adicionarAoCarinnho: (id)=>{dispatch(adicionaAoCarrinho(id))},
+        updateStatePoke : (teste)=>{dispatch(atualizaState())}
     }
 }
 

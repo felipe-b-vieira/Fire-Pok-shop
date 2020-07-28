@@ -3,95 +3,96 @@ import Item1 from '../../images/sylveon.png'
 import Item2 from '../../images/clefable.png'
 import Item1S from '../../images/sylveonshiny.png'
 import Item2S from '../../images/clefableshiny.png'
-import { ADD_TO_CART,REMOVE_ITEM,SUB_QUANTITY,ADD_QUANTITY, END_BUY } from '../actions/action-types/cart-actions'
+import { ADICIONAR_PARA_CARRINHO,REMOVER_ITEM,SUB_QUANTIDADE,ADD_QUANTIDADE, ALTERNA_COMPRA } from '../actions/action-types/cart-actions'
 
 const initState = {
-    addedItems:[],
+    itensNoCarrinho:[],
     total: 0,
     compraFinalizada : false,
 
 }
 
+//Componentes de controle do carrinho
 const cartReducer= (state = initState,action)=>{
    
-    //INSIDE HOME COMPONENT
-    if(action.type === ADD_TO_CART){
-         let existed_item= state.addedItems.find(item=> action.id === item.id)
-         if(existed_item)
+    //adiciona produto no carrinho e ajusta quantidade e preço
+    if(action.type === ADICIONAR_PARA_CARRINHO){
+         let itemExistente= state.itensNoCarrinho.find(item=> action.id === item.id)
+         if(itemExistente)
          {
-            existed_item.quantidade += 1 
+            itemExistente.quantidade += 1 
              return{
-                ...state,
-                addedItems: [...state.addedItems],
-                 total: state.total + existed_item.id
-                  }
+                    ...state,
+                    itensNoCarrinho: [...state.itensNoCarrinho],
+                    total: state.total + itemExistente.id
+                }
         }
          else{
              
-            let addedItem = {id:action.id,quantidade:1}
-            
-            //calculating the total
-            let newTotal = state.total + addedItem.id 
+            let novoItem = {id:action.id,quantidade:1}
+            let novoTotal = state.total + novoItem.id 
             
             return{
                 ...state,
-                addedItems: [...state.addedItems, addedItem],
-                total : newTotal
+                itensNoCarrinho: [...state.itensNoCarrinho, novoItem],
+                total : novoTotal
             }
             
         }
     }
-    if(action.type === REMOVE_ITEM){
-        let itemToRemove= state.addedItems.find(item=> action.id === item.id)
-        let new_items = state.addedItems.filter(item=> action.id !== item.id)
+    //remove item do carrinho
+    if(action.type === REMOVER_ITEM){
+        let itemParaRemover= state.itensNoCarrinho.find(item=> action.id === item.id)
+        let novosItens = state.itensNoCarrinho.filter(item=> action.id !== item.id)
         
-        //calculating the total
-        let newTotal = state.total - (itemToRemove.id * itemToRemove.quantidade )
-        console.log(itemToRemove)
+        let novoTotal = state.total - (itemParaRemover.id * itemParaRemover.quantidade )
+        console.log(itemParaRemover)
         return{
             ...state,
-            addedItems: new_items,
-            total: newTotal
+            itensNoCarrinho: novosItens,
+            total: novoTotal
         }
     }
 
-    if(action.type=== ADD_QUANTITY){
-        let addedItem = state.addedItems.find(item=> item.id === action.id)
+    //adiciona +1 a quantidade do item no carrinho
+    if(action.type=== ADD_QUANTIDADE){
+        let addedItem = state.itensNoCarrinho.find(item=> item.id === action.id)
           addedItem.quantidade += 1 
-          let newTotal = state.total + addedItem.id
+          let novoTotal = state.total + addedItem.id
           return{
               ...state,
-              total: newTotal
+              total: novoTotal
           }
     }
-    if(action.type=== SUB_QUANTITY){  
-        let addedItem = state.addedItems.find(item=> item.id === action.id) 
-        //if the qt == 0 then it should be removed
+    //Remove em 1 a quantidade no carrinho e remove o item se necessário
+    if(action.type=== SUB_QUANTIDADE){  
+        let addedItem = state.itensNoCarrinho.find(item=> item.id === action.id) 
         if(addedItem.quantidade === 1){
-            let new_items = state.addedItems.filter(item=>item.id !== action.id)
-            let newTotal = state.total - addedItem.id
+            let novosItens = state.itensNoCarrinho.filter(item=>item.id !== action.id)
+            let novoTotal = state.total - addedItem.id
             return{
                 ...state,
-                addedItems: new_items,
-                total: newTotal
+                itensNoCarrinho: novosItens,
+                total: novoTotal
             }
         }
         else {
             addedItem.quantidade -= 1
-            let newTotal = state.total - addedItem.id
+            let novoTotal = state.total - addedItem.id
             return{
                 ...state,
-                total: newTotal
+                total: novoTotal
             }
         }
         
     }
     
-    if(action.type=== END_BUY){  
+    //ele alterna entre estado de compra finalizada ou não. Isso serve para limpar o carrinho e mostrar um Modal de finalização.
+    if(action.type=== ALTERNA_COMPRA){  
         console.log(state.compraFinalizada)
         return{
             ...state,
-            addedItems : [],
+            itensNoCarrinho : [],
             compraFinalizada : !state.compraFinalizada
         }
         

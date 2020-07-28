@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { removeItem } from './actions/cartActions'
 import '../tailwind.output.css';
 
 class Carrinholateral extends Component{
     constructor(props) {
         super(props);
     
+    }
+    //para poder remover ao clicar no lixo
+    handleRemover = (id)=>{
+        this.props.removerItem(id);
     }
     render(){
         
@@ -50,7 +55,7 @@ class Carrinholateral extends Component{
                                         <div class="text-black">{item.quantidade} unidade(s)</div>
                                     </div>
                                     <div class="flex flex-col w-18 font-medium items-end">
-                                        <div class="w-4 h-4 hover:bg-red-200 rounded-full cursor-pointer text-red-700">
+                                        <div onClick={()=>{this.handleRemover(item.id)}} class="w-4 h-4 hover:bg-red-200 rounded-full cursor-pointer text-red-700">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 ">
                                                 <polyline points="3 6 5 6 21 6"></polyline>
                                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -93,10 +98,14 @@ class Carrinholateral extends Component{
 }
 const mapStateToProps = (state)=>{
     return{
-        items: state.cartReducer.addedItems,
+        items: state.cartReducer.itensNoCarrinho,
         pokefadas: state.pokeReducer.pokefadas,
         total: state.cartReducer.total
     }
 }
-
-export default connect(mapStateToProps)(Carrinholateral);
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        removerItem: (id)=>{dispatch(removeItem(id))},
+    }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Carrinholateral);
